@@ -1,15 +1,23 @@
 const Discord = require("discord.js")
 const client = new Discord.Client({
-    intents: Object.keys(Discord.GatewayIntentBits).map((a)=>{
-        return Discord.GatewayIntentBits[a] 
-    })
+	intents: Object.keys(Discord.GatewayIntentBits).map((a) => { return Discord.GatewayIntentBits[a] })
+})
+require("dotenv").config()
+const fs = require("fs")
+
+/**
+ * TODO:
+ * FINISH SONGADD.JS 
+ * CREATE PLAY COMMAND
+ * ADD BETTER ERROR HANDLER (USING THE ALT DISCORD DMS)
+ * ? CHECK DISCORD.JS DOCS FOR RELOADING COMMANDS
+ * 
+ * ! IMPORTANT: AFTER FINISHING ALL OF THE ABOVE, MAKE SURE PREVIOUS CODE IS ACTUALLY LIKE THE PREVIOUS MUSIC NOTE
+ */
+
+fs.readdirSync("./handlers").forEach(handlerFile => {
+	const handler = require(`./handlers/${handlerFile}`)
+	if (typeof(handler) == "function") handler(client)
 })
 
-const { Player } = require("discord-music-player")
-client.player = new Player(client, {
-    leaveOnEnd: true,
-    leaveOnStop: true,
-    leaveOnEmpty: true,
-    deafenOnJoin: true
-})
-
+client.login(process.env.TOKEN)
