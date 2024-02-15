@@ -1,23 +1,30 @@
 const { Events } = require("discord.js")
-const embeds = require("../../handlers/embeds.js")
-const keywords = require("../../handlers/keywords")
 
 module.exports = {
     name: Events.InteractionCreate,
     async execute(client, interaction) {
         if (interaction.isCommand()) {
             const command = client.commands.get(interaction.commandName)
-
+            if (!command) return interaction.reply({ content: "This command is outdated", ephemeral: true })
+            
             try {
-                console.log(`\x1b[1m\x1b[32mSuccess \x1b[30m- \x1b[1m\x1b[35m${interaction.user.tag} used ${command.name} \x1b[30m- \x1b[2m\x1b[35m${interaction.guildId}\x1b[0m`)
-                return await command.execute(client, interaction)
+                console.log(`\x1b[1m\x1b[32mSuccess \x1b[30m- \x1b[1m\x1b[35m${interaction.user.tag} used ${command.data.name} \x1b[30m- \x1b[2m\x1b[35m${interaction.guildId}\x1b[0m`)
+                await command.execute(client, interaction)
             } catch (error) {
                 console.error(error)
-                try {
-                    return await interaction.reply({ embeds: [embeds.ErrorEmbed(keywords.ExecuteError, "❌")], ephemeral: true })
-                } catch (error) {
-                    console.error(`Failed to reply to interaction in interactionCreate.js: ${error}`)
-                }
+            }
+        }
+
+        if (interaction.isAutocomplete()) {
+            const command = client.commands.get(interaction.commandName)
+            if (!command) return console.log('Command was not found')
+
+            if (!command.autocomplete) return console.error(`No autocomplete handler was found for the ${interaction.commandName} command`)
+            
+            try {
+                await command.autocomplete(client, interaction)
+            } catch (error) {
+                console.error(error)
             }
         }
     }
