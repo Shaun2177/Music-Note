@@ -13,7 +13,7 @@ module.exports = (client) => {
         } else {
             console.log(`[WARNING] The command at /commands/${commandFile} is missing a required "data" or "execute" property.`)
         }
-    })  
+    })
 
     client.once("ready", async () => {
         await client.application.commands.set(arrayOfCommands)
