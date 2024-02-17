@@ -18,14 +18,6 @@ module.exports = {
         //* THIS IS USED FOR DISABLING BUTTONS AFTER THE SONG IS CHANGED
         await disableOldButtons(queue)
 
-
-
-
-
-
-
-
-        
         //* THIS IS USED FOR SENDING THE NOW PLAYING MESSAGE
         let { interaction } = newSong.data
         queue.setData({ lastTrack: oldSong })

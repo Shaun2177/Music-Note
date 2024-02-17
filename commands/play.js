@@ -27,13 +27,13 @@ module.exports = {
 	async execute(client, interaction) {
 		await interaction.deferReply() // Used for addSong.js
 
+		// Check if the user is in a a voice channel
 		//* If autocomplete was used will be a URL
 		const query = interaction.options.getString("query")
-		// console.log(query)
 
 		let queue = client.player.createQueue(interaction.guild.id)
 		await queue.join(interaction.member.voice.channel)
 
-		await queue.play(query, { requestedBy: interaction.user, data: { interaction: interaction }}).catch(err => { return console.log(err) })
+		await queue.play(query, { requestedBy: interaction.user, data: { interaction: interaction, positionInQueue: String(queue.songs.length) }}).catch(err => { return console.log(err) })
 	}
 }
