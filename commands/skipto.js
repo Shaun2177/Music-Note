@@ -1,6 +1,6 @@
 const embeds = require("../handlers/embeds.js")
-const keywords = require("../handlers/keywords.js")
 const emotes = require("../handlers/emotes.js")
+const getQueue = require("../utils/getQueue.js")
 const { SlashCommandBuilder } = require("discord.js")
 
 module.exports = {
@@ -18,8 +18,8 @@ module.exports = {
 
 		const choice = []
         try {
-            queue.songs.forEach((x, index) => { 
-                if (index == 0) return
+            queue.songs.forEach((x, index) => {                 
+                if (index == 0 || index > 24) return // If it's the current song or more than 25 songs
                 let positionInQueue = String(index)
                 choice.push({ name: `${positionInQueue}. ${x.name}`, value: positionInQueue })
             })
@@ -27,13 +27,11 @@ module.exports = {
         } catch (error) {
             console.error(error)
         }
-        console.log(choice)
     },
     async execute(client, interaction) {
-        const queue = client.player.getQueue(interaction.guild.id)
-        // If there's no queue or no songs
-        if (!queue?.songs || queue.songs.length == 0) return interaction.reply({ embeds: [embeds.ErrorEmbed(keywords.NothingPlaying, emotes.X)], ephemeral: true })
-    
+        const queue = await getQueue(client, interaction)
+        if (!queue) return
+
         const songIndex = interaction.options.getInteger("song")
         if (songIndex <= 0 || songIndex >= queue.songs.length) return interaction.reply({ embeds: [embeds.ErrorEmbed("Enter a valid song index", emotes.X)], ephemeral: true })
     

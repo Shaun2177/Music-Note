@@ -24,5 +24,7 @@ module.exports = {
     /** 🔊 */
     VolumeUp: "🔊",
     /** 🗑️ */
-    Trash: "🗑️"
+    Trash: "🗑️",
+    /** ⏩ */
+    ForwardSong: "⏩"
 }

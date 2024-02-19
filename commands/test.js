@@ -1,5 +1,4 @@
 const { SlashCommandBuilder } = require('discord.js')
-const yt = require("youtube-sr").default
 
 module.exports = {
 	data: new SlashCommandBuilder()
