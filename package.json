@@ -5,6 +5,7 @@
     "dotenv": "^16.4.4",
     "fs": "^0.0.1-security",
     "isomorphic-unfetch": "^4.0.2",
+    "string-progressbar": "^1.0.4",
     "youtube-sr": "^4.3.10"
   }
 }
