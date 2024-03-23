@@ -26,5 +26,7 @@ module.exports = {
     /** 🗑️ */
     Trash: "🗑️",
     /** ⏩ */
-    ForwardSong: "⏩"
+    ForwardSong: "⏩",
+    /** 🔍 */
+    MagnifyingGlass: "🔍"
 }
