@@ -77,7 +77,7 @@ module.exports = {
             .setDescription(pages[currentPage])
 
         const message = await interaction.reply({ embeds: [embed], components: [row] })
-        const collector = message.createMessageComponentCollector({ componentType: ComponentType.Button })
+        const collector = message.createMessageComponentCollector({ componentType: ComponentType.Button, time: 60000 })
 
         collector.on('collect', async (interaction) => {
             if (interaction.customId === 'previous') {
