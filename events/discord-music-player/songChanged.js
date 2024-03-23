@@ -139,6 +139,7 @@ module.exports = {
                     await queue.clearQueue()
 
                     await button.reply({ embeds: [embeds.SuccessEmbed("Cleared the queue", emotes.Trash)] })
+                    break
             }
         })
     }
